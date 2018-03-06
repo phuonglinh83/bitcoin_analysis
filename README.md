@@ -4,3 +4,4 @@ Analyze twitter sentiment on bitcoin price
 Setup
 Install tweepy:
 sudo pip install tweepy
+sudo pip install textblob
