@@ -15,9 +15,19 @@ def filter(infile, fromTime, toTime, outfile):
         outfile.write(line)
     outfile.close()
 
+# Filter raw downloaded tweets into days, one file per day. These files are saved in tweets_by_day dir
+# Tweets in each file are sorted in increasing time order.
+# Call python filter.py <raw_tweets_file> <month> <from_day> <to_day> 
 if __name__ == "__main__":
     infile = sys.argv[1]
-    fromTime = datetime.datetime.strptime(sys.argv[2], '%Y-%m-%d %H:%M:%S')
-    toTime = datetime.datetime.strptime(sys.argv[3], '%Y-%m-%d %H:%M:%S')
-    outfile = sys.argv[4]
-    filter(infile, fromTime, toTime, outfile)
+    month = int(sys.argv[2])
+    fromday = int(sys.argv[3])
+    today = int(sys.argv[4])
+    for day in range(fromday, today + 1):
+        fromTime = datetime.datetime(2018, month, day, 0, 0, 0)
+        toTime = datetime.datetime(2018, month, day, 23, 59, 59)
+        # print fromTime
+        # print toTime
+        outfile = 'tweets_by_day/' + str(month) + '_' + str(day) + '.txt'
+        # print outfile
+        filter(infile, fromTime, toTime, outfile)
