@@ -32,6 +32,8 @@ def report(filename, results):
     prev_time = ''
     for line in open(filename, 'r'):
         tokens = line.split('|')
+        if len(tokens) < 3:
+            continue
         time = datetime.datetime.strptime(tokens[1], '%Y-%m-%d %H:%M:%S')
         # Round up time to hour
         roundTime = datetime.datetime(time.year, time.month, time.day, time.hour)  

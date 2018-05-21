@@ -54,10 +54,15 @@ def is_negative(tweet, algorithm):
     
     raise ValueError('Invalid training algorithm!')
 
+# Clean and filter tweet from input 'filename' and then decide the label for the tweet (if applicable)
+# based on the algorithm, and then write the labeled tweet to the outfile 
 def process(filename, algorithm, outfile):
+    # use for remove duplicate tweets
     all_tweets = []
     for line in open(filename, 'r'):
         tokens = line.split('|')
+        if len(tokens) < 3:
+            continue
         origin = tokens[2]
         label = ''
         

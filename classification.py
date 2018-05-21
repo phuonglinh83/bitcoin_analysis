@@ -24,6 +24,7 @@ def get_features(tweet):
 
 # Loads training data from file
 def load_data(filename):
+    # store words in all tweets
     all_words = []
     for line in open(filename, 'r'):
         tokens = line.split('|')

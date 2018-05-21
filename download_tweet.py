@@ -71,7 +71,7 @@ class TwitterClient(object):
                     parsed_tweet = {}
      
                     # saving text of tweet
-                    parsed_tweet['text'] = tweet.text
+                    parsed_tweet['text'] = self.clean_tweet(tweet.text)
                     # saving id of tweet
                     parsed_tweet['id'] = tweet.id_str
                     # saving created time of tweet

@@ -36,16 +36,16 @@ if __name__ == "__main__":
     price_dir = sys.argv[2]
     fromTime = datetime.datetime.strptime(sys.argv[3], '%Y-%m-%d')
     toTime = datetime.datetime.strptime(sys.argv[4], '%Y-%m-%d')
-    outfile = open(sys.argv[3], 'w')
+    outfile = open(sys.argv[5], 'w')
     
     # a dictionary map each hour to the closing price of that hour
     prices = dict()
     # load prices from all files in a dir into the dictionary for look up
     for filename in listdir(price_dir):
-        file_path = join(path, filename)
+        file_path = join(price_dir, filename)
         load_price(file_path, prices)
     
-    # Now report correlation betweet sentiments and prices for each day
+    # 1. Now report correlation between sentiments and prices for each day
     for day in range(0, (toTime - fromTime).days):
         startTime = fromTime + datetime.timedelta(days=day)
         endTime = fromTime + datetime.timedelta(days=day + 1)
@@ -64,7 +64,7 @@ if __name__ == "__main__":
             s2.append(raw[i][4])
         print "%d-%d-%d,%f" %(startTime.year, startTime.month, startTime.day, np.corrcoef(s1, s2)[0][1])
     
-    # write all results to the outfile
+    # 2. write all results to the outfile
     all_data = join_price(sentiment_report_file, prices, fromTime, toTime)
     for data  in all_data:
         outfile.write(str(data[0]) + "," + str(data[1]) + "," + str(data[2]) + "," + str(data[3]) + "," + str(data[4]) + '\n')

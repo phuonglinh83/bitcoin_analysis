@@ -8,14 +8,14 @@ def filter(infile, fromTime, toTime, outfile):
     for line in open(infile, 'r'):
         tokens = line.split('|')
         # print tokens
-        time = datetime.datetime.strptime(tokens[2], '%Y-%m-%d %H:%M:%S')
+        time = datetime.datetime.strptime(tokens[1], '%Y-%m-%d %H:%M:%S')
         if time >= fromTime and time < toTime:
             lines.append(line)
     for line in lines[::-1]:
         outfile.write(line)
     outfile.close()
 
-# Filter raw downloaded tweets into days, one file per day. These files are saved in tweets_by_day dir
+# split raw downloaded tweets into days, one file per day. These files are saved in tweets_by_day dir
 # Tweets in each file are sorted in increasing time order.
 # Call python filter.py <raw_tweets_file> <month> <from_day> <to_day> 
 if __name__ == "__main__":
